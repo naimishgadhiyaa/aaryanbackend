@@ -1,12 +1,14 @@
-const express = require("express");
+import express from "express";
+import cors from "cors";
+import "./utils/db.js";
+import bodyParser from "body-parser";
+import router from "./routers/wings.route.js";
+
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/admin", router);
 
-const PORT = process.env.PORT || 3000;
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
